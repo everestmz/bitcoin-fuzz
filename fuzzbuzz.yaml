@@ -8,7 +8,5 @@ setup:
   - CC=clang CXX=clang++ make
 targets:
   - name: script-flags
-    setup:
-      - true
     harness:
       binary: src/test/fuzz/script_flags
