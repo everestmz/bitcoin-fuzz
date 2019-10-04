@@ -1,12 +1,22 @@
 base: ubuntu:16.04
 language: c++
+environment:
+  - CXXFLAGS=-O1 -fno-omit-frame-pointer -gline-tables-only -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION -fsanitize-coverage=trace-pc-guard -fprofile-instr-generate -fcoverage-mapping -fsanitize=address
 setup:
+  - echo $CXXFLAGS
   - sudo apt-get update
   - sudo apt-get install -y bsdmainutils libboost-program-options-dev libboost-all-dev  libdb5.3++ software-properties-common  libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler clang-format clang-tidy clang libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 libllvm-ocaml-dev libomp-dev libomp5 lldb llvm-dev llvm-runtime llvm autoconf libtool pkg-config openssl libssl-dev libevent-dev 
   - CC=clang CXX=clang++ ./autogen.sh
-  - CC=clang CXX=clang++ ./configure --enable-fuzz --with-sanitizers=address,fuzzer,undefined
-  - CC=clang CXX=clang++ make
+  - ./configure --enable-fuzz CC=$FUZZ_STANDALONE_CC CXX=$FUZZ_STANDALONE_CXX --with-sanitizers=address,undefined
+  - AFL_HARDEN=1 cd src && make
 targets:
-  - name: script-flags
+  - name: addrman-deserialize
     harness:
-      binary: src/test/fuzz/script_flags
+      binary: /home/appuser/fuzzer/src/test/fuzz/addrman_deserialize
+    sanitizers:
+      address:
+  - name: address-deserialize
+    harness:
+      binary: /home/appuser/fuzzer/src/test/fuzz/address_deserialize
+    sanitizers:
+      address:
