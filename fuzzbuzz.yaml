@@ -9,12 +9,15 @@ setup:
   - CC=clang CXX=clang++ ./autogen.sh
   - ./configure --enable-fuzz CC=$FUZZ_STANDALONE_CC CXX=$FUZZ_STANDALONE_CXX --with-sanitizers=address,undefined
   - AFL_HARDEN=1 cd src && make
+  - git clone https://github.com/bitcoin-core/qa-assets /home/appuser/fuzzer/qa-assets
 targets:
   - name: addrman-deserialize
+    corpus: ./qa-assets/fuzz_seed_corpus/addrman_deserialize
     memory_limit: none
     harness:
       binary: ./src/test/fuzz/addrman_deserialize
   - name: address-deserialize
+    corpus: ./qa-assets/fuzz_seed_corpus/address_deserialize
     memory_limit: none
     harness:
       binary: ./src/test/fuzz/address_deserialize
