@@ -5,7 +5,7 @@ environment:
 setup:
   - echo $CXXFLAGS
   - sudo apt-get update
-  - sudo apt-get install -y bsdmainutils libboost-program-options-dev libboost-all-dev  libdb5.3++ software-properties-common  libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler clang-format clang-tidy clang libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 libllvm-ocaml-dev libomp-dev libomp5 lldb llvm-dev llvm-runtime llvm autoconf libtool pkg-config openssl libssl-dev libevent-dev 
+  - sudo apt-get install -y git bsdmainutils libboost-program-options-dev libboost-all-dev  libdb5.3++ software-properties-common  libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler clang-format clang-tidy clang libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 libllvm-ocaml-dev libomp-dev libomp5 lldb llvm-dev llvm-runtime llvm autoconf libtool pkg-config openssl libssl-dev libevent-dev 
   - CC=clang CXX=clang++ ./autogen.sh
   - ./configure --enable-fuzz CC=$FUZZ_STANDALONE_CC CXX=$FUZZ_STANDALONE_CXX --with-sanitizers=address,undefined
   - AFL_HARDEN=1 cd src && make
