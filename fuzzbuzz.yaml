@@ -18,5 +18,3 @@ targets:
   - name: address-deserialize
     harness:
       binary: /home/appuser/fuzzer/src/test/fuzz/address_deserialize
-    sanitizers:
-      address:
