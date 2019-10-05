@@ -11,10 +11,10 @@ setup:
   - AFL_HARDEN=1 cd src && make
 targets:
   - name: addrman-deserialize
+    memory_limit: none
     harness:
-      binary: /home/appuser/fuzzer/src/test/fuzz/addrman_deserialize
-    sanitizers:
-      address:
+      binary: ./src/test/fuzz/addrman_deserialize
   - name: address-deserialize
+    memory_limit: none
     harness:
-      binary: /home/appuser/fuzzer/src/test/fuzz/address_deserialize
+      binary: ./src/test/fuzz/address_deserialize
