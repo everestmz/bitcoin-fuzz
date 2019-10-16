@@ -10,6 +10,7 @@ setup:
   - CC=clang CXX=clang++ ./configure --enable-fuzz --with-sanitizers=address,fuzzer,undefined
   - make
   - git clone https://github.com/bitcoin-core/qa-assets /home/appuser/fuzzer/qa-assets
+  - find src/test/fuzz/ -type f
 targets:
   - name: addrman-deserialize
     corpus: ./qa-assets/fuzz_seed_corpus/addrman_deserialize
