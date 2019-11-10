@@ -11,14 +11,7 @@ setup:
   - make
   - git clone https://github.com/bitcoin-core/qa-assets /home/appuser/fuzzer/qa-assets
   - find src/test/fuzz/ -type f
-targets:
-  - name: addrman-deserialize
-    corpus: ./qa-assets/fuzz_seed_corpus/addrman_deserialize
-    memory_limit: none
-    harness:
-      binary: ./src/test/fuzz/addrman_deserialize
-  - name: address-deserialize
-    corpus: ./qa-assets/fuzz_seed_corpus/address_deserialize
-    memory_limit: none
-    harness:
-      binary: ./src/test/fuzz/address_deserialize
+auto_targets:
+  find_targets_command: find src/test/fuzz/ -executable -type f
+  base_corpus_dir: ./qa-assets/fuzz_seed_corpus/
+  memory_limit: none
